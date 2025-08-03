@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator Sederhana</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      body {
+        background: #f2f6f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .calculator {
+        background: white;
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        width: 320px;
+      }
+
+      .calculator h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group {
+        margin-bottom: 1rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.3rem;
+        color: #555;
+        font-size: 0.95rem;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 0.6rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.2s;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: #7aa7ff;
+        outline: none;
+      }
+
+      .output {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background: #f0f4fa;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 1.2rem;
+        color: #333;
+        font-weight: bold;
+      }
+      button {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <h2>Kalkulator Sederhana</h2>
+
+      <div class="form-group">
+        <label for="angka1">Angka Pertama:</label>
+        <input type="number" id="angka1" placeholder="Masukkan angka pertama" />
+      </div>
+
+      <div class="form-group">
+        <label for="operator">Operasi:</label>
+        <select id="operator">
+          <option value="tambah">Tambah (+)</option>
+          <option value="kurang">Kurang (-)</option>
+          <option value="kali">Kali (×)</option>
+          <option value="bagi">Bagi (÷)</option>
+          <option value="modulus">Modulus (%)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="angka2">Angka Kedua:</label>
+        <input type="number" id="angka2" placeholder="Masukkan angka kedua" />
+      </div>
+
+      <!-- Jika pake Button -->
+      <button id="hitungButton">Hitung</button>
+
+      <div class="output" id="output">Hasil akan muncul di sini</div>
+    </div>
+
+    <script>
+      //Mendeklarasi Variabel
+      const angka1Input = document.getElementById("angka1");
+      const angka2Input = document.getElementById("angka2");
+      const operatorSelect = document.getElementById("operator");
+      const outputDiv = document.getElementById("output");
+      const tombolHitung = document.getElementById("hitungButton");
+
+      tombolHitung.addEventListener("click", hitung);
+
+      //Membuat fungsi perhitungan
+      function hitung() {
+        const angka1 = parseFloat(angka1Input.value);
+        const angka2 = parseFloat(angka2Input.value);
+        const operator = operatorSelect.value;
+
+        let hasil;
+
+        //Validasi
+        if (isNaN(angka1) || isNaN(angka2)) {
+          outputDiv.textContent = "Harap Isi Formnya!";
+          return;
+        }
+        switch (operator) {
+          case "tambah":
+            hasil = angka1 + angka2;
+            break;
+          case "kurang":
+            hasil = angka1 - angka2;
+            break;
+          case "kali":
+            hasil = angka1 * angka2;
+            break;
+          case "bagi":
+            if (angka2 === 0) {
+              outputDiv.textContent = "Pembagian tidak bisa dibagi 0";
+              return;
+            }
+            hasil = angka1 / angka2;
+            break;
+          case "modulus":
+            if (angka2 === 0) {
+              outputDiv.textContent = "Modulus tidak bisa dibagi 0";
+              return;
+            }
+            hasil = angka1 % angka2;
+            break;
+
+          default:
+            outputDiv.textContent = "Operasi tidak dikenali";
+            break;
+        }
+
+        //Tampilkan Hasil
+        outputDiv.textContent = `Hasilnya adalah ${hasil}`;
+      }
+
+      //Even Listener
+      // angka1Input.addEventListener("input", hitung);
+      // angka2Input.addEventListener("input", hitung);
+      // operatorSelect.addEventListener("change", hitung);
+    </script>
+  </body>
+</html>
